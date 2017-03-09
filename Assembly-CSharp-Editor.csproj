@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{47DE1CBB-3ADB-5399-1177-22E537A75EE4}</ProjectGuid>
+    <ProjectGuid>{26C5D2C9-7CFF-A889-C044-B1FEE0B68B8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -183,7 +183,7 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="Pathfinding.JsonFx">
- <HintPath>C:/Users/Michael Brown/Desktop/Vive Build/Assets/Plugins/Pathfinding.JsonFx.dll</HintPath>
+ <HintPath>C:/Users/Michael Brown/Documents/disruptVR/Assets/Plugins/Pathfinding.JsonFx.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -199,8 +199,10 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{CCC8D185-687F-5DFD-382E-186E08E9E8A0}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{0F729050-A91B-5E10-A859-DCB3DF52D2AA}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{6D94E882-BFCA-1F78-A20C-1DA5D7386F74}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
