@@ -6,29 +6,42 @@ public class PlayerHealth : MonoBehaviour {
 
 	//players health
 	public float playerHealth;
+	[Tooltip("How much health to regen per second")]
+	public float regenRate;
+	[Tooltip("How long since damage to begin regenerating")]
+	public float regenStart;
+	private float regenInterval;
+	float regenTimer;
 
 	// Object containers
 	Text txt;
+	SpriteRenderer damage;
 	//AnnouncerScript aScript;
 
 	// Hurt counter and bool
-	bool hurtFlag;
+	bool hurtAudioFlag;
 	bool gameOverFlag;
-	float timer;
 
 	// Use this for initialization
 	void Start ()
 	{
 		playerHealth = 100.0f;
+		regenRate = 10.0f;
+		regenStart = 0.5f;
+		regenInterval = 0.1f;
 
 		txt = GameObject.FindObjectOfType<Text>();
+		damage = GameObject.FindGameObjectWithTag ("Damage").GetComponent<SpriteRenderer> ();
 
 		//aScript = GameObject.Find ("Announcer").GetComponent<AnnouncerScript> ();
 
 		// Audio parameters
 		gameOverFlag = false;
-		hurtFlag = false;
-		timer = 0;
+		hurtAudioFlag = false;
+		regenTimer = 0;
+
+		// Start health regen routine
+		StartCoroutine(RegenHealth());
 	}
 	
 	// Update is called once per frame
@@ -56,28 +69,35 @@ public class PlayerHealth : MonoBehaviour {
 			
 			txt.text = "Game Over";
 		}
+		else if (playerHealth > 100)
+		{
+			playerHealth = 100;
+		}
 
-		if ((timer > 10) && (hurtFlag == false))
+		if ((regenTimer > 10) && (hurtAudioFlag == false))
 		{
 			Debug.Log ("Hurt");
 			//aScript.snores = true;
-			hurtFlag = true;
+			hurtAudioFlag = true;
 		}
 
+		// Update UI Damage
+		float damAlpha = Mathf.Abs((playerHealth / 100) - 1);
+		damage.color = new Vector4(damage.color.r, damage.color.g, damage.color.b, damAlpha);
+
 		// increase timer
-		timer += Time.deltaTime;
+		regenTimer += Time.deltaTime;
 	}
 
 	//Check for collision between player and a projectile
-	//decreaseplayers health by 1/8th
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.tag == "Projectile") 
 		{
-			playerHealth -= 12.5f;
+			playerHealth -= 34.0f;
 
 			// Reset hurt timer
-			timer = 0;
+			regenTimer = 0;
 
 			if (Random.Range (0.0f, 100.0f) < 50.0f) 
 			{
@@ -92,10 +112,18 @@ public class PlayerHealth : MonoBehaviour {
 						//aScript.dodgeThose = true;
 				}
 			}
+		}
+	}
 
-			// increment hit counter for round stats
-			GameManager manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-			manager.rounds [manager.round_].hits++;
+	private IEnumerator RegenHealth()
+	{
+		while (playerHealth > 0) 
+		{
+			if (regenTimer > regenStart && playerHealth < 100) 
+			{
+				playerHealth += regenRate * regenInterval;
+			}
+			yield return new WaitForSeconds (regenInterval);
 		}
 	}
 }

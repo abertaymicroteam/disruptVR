@@ -93,6 +93,20 @@ namespace Unity3dAzure.StorageServices
 			request.AddBody (bytes, contentType);
 
 			yield return request.request.Send ();
+
+			#if UNITY_EDITOR
+			while (request.request.responseCode == -1L) {
+			}
+			#endif
+				
+			request.Result (callback);
+		}
+
+		public IEnumerator DeleteBlob (Action<RestResponse> callback, string resourcePath, string filename)
+		{
+			string filePath = resourcePath.Length > 0 ? resourcePath + "/" + filename : filename;
+			StorageRequest request = Auth.CreateAuthorizedStorageRequest (client, Method.DELETE, filePath);
+			yield return request.request.Send ();
 			request.Result (callback);
 		}
 	}

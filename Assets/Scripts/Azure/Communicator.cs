@@ -55,7 +55,7 @@ public class Communicator : MonoBehaviour
 			{
 				// Load and play new audio clip
 				AudioSource newSource = gameObject.AddComponent<AudioSource> ();
-				LoadAudioClip (_client.PrimaryEndpoint() + "voiceaudio/" + latestResults.Blobs[lastKnownResults].Name, newSource);
+				LoadAudioClip (_client.PrimaryEndpoint() + "voiceaudio/" + latestResults.Blobs[lastKnownResults].Name, newSource, latestResults.Blobs[lastKnownResults].Name);
 				lastKnownResults = latestResults.Blobs.Length;
 			}
 		}
@@ -97,12 +97,12 @@ public class Communicator : MonoBehaviour
 		}
 	}
 
-	public void LoadAudioClip(string url, AudioSource src)
+	public void LoadAudioClip(string url, AudioSource src, string name)
 	{
-		StartCoroutine (LoadAudioURL (url, src));
+		StartCoroutine (LoadAudioURL (url, src, name));
 	}
 
-	public IEnumerator LoadAudioURL(string url, AudioSource src)
+	public IEnumerator LoadAudioURL(string url, AudioSource src, string name)
 	{
 		UnityWebRequest www = UnityWebRequest.GetAudioClip (url, AudioType.WAV);
 		yield return www.Send ();
@@ -114,25 +114,22 @@ public class Communicator : MonoBehaviour
 			AudioClip clip = ((DownloadHandlerAudioClip)www.downloadHandler).audioClip;
 			src.clip = clip;
 			src.Play ();
-			DeleteAudioClip (url); // Delete clip from azure once played
+			DeleteAudioClip ("voiceaudio", name); // Delete clip from azure once played
 		}
 	}
 
-	public void DeleteAudioClip(string url)
+	public void DeleteAudioClip(string containerName, string name)
 	{
-		StartCoroutine (DeleteAudioURL (url));
+		StartCoroutine (_service.DeleteBlob(DeleteAudioCompleted, containerName, name));
 	}
 
-	public IEnumerator DeleteAudioURL(string url)
+	private void DeleteAudioCompleted(RestResponse response)
 	{
-		UnityWebRequest www = UnityWebRequest.Delete (url);
-		yield return www.Send ();
-		if (www.isError) {
-			Debug.Log ("Error Deleting Audio from URL: " + www.error);
-		} 
-		else 
+		if (response.IsError)
 		{
-			Debug.Log ("Deleted Audio Clip " + url);
+			Debug.Log ("Delete blob error! Status: " + response.StatusCode + " Message: " + response.ErrorMessage);
+			return;
 		}
+		Debug.Log("Deleted Blob! Status: " + response.StatusCode);
 	}
 }
