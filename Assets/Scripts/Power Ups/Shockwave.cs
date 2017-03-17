@@ -18,8 +18,8 @@ public class Shockwave : BasePowerup {
 				ball.isActive = false;
 
 				// increment hit counter for round stats
-				GameManager manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-				manager.rounds [manager.round_].shockwaved++;
+				ScoreTracker tracker = GameObject.Find("ScoreTracker").GetComponent<ScoreTracker>();
+				tracker.AddShockwave();
 			}
 			ball.GetComponent<Rigidbody> ().AddForce (ball.transform.position, ForceMode.Acceleration);
 		}

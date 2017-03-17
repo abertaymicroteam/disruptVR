@@ -4,32 +4,26 @@ using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour {
 
-	public List<GameObject> Projectiles;
 	private Transform target;
-
 	private SpawnManager manager;
 
-	void Start(){
-
-		target = GameObject.FindWithTag("Player").transform;
-		manager = GameObject.FindWithTag ("SpawnManager").GetComponent<SpawnManager> ();
+	void Awake(){
 
 		Random.InitState((int)System.DateTime.Now.Ticks);
+
+		target = GameObject.Find("Player").transform;
+		manager = GameObject.Find("Spawners").GetComponent<SpawnManager> ();
 	}
 
 	void Update(){
 
-		Vector3 direction = target.position - transform.position;
-		transform.LookAt (target.position);
-		transform.Rotate (transform.up, 90);
+		//Vector3 direction = target.position - transform.position;
+		//transform.LookAt (target.position);
+		//transform.Rotate (transform.up, 90);
 	}
 
-	public void Spawn(){
+	public void Spawn(GameObject item){
 
-		int next = Random.Range (0, Projectiles.Count);
-
-		if (manager.enabledProjectiles [next]) {
-			Instantiate (Projectiles [next], transform.position, Quaternion.identity);
-		}
+		Instantiate (item, transform.position, Quaternion.identity);
 	}
 }
