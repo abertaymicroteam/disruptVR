@@ -42,8 +42,8 @@ public class SphereCollisionScript : MonoBehaviour {
 			GetComponent<Rigidbody>().AddForce(newDir, ForceMode.VelocityChange);
 
 			// increment hit counter for round stats
-			GameManager manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-			manager.rounds [manager.round_].punches++;
+			ScoreTracker tracker = GameObject.Find("ScoreTracker").GetComponent<ScoreTracker>();
+			tracker.AddPunch();
 		}
 	}
 

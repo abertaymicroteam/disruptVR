@@ -27,7 +27,7 @@ public class Communicator : MonoBehaviour
 	BlobResults latestResults = new BlobResults();
 
 	// Things for conditions
-	int lastKnownResults = 0;
+	public int lastKnownResults = 0;
 	bool currentlyReading = false;
 
 	// Audio Sources
@@ -56,6 +56,10 @@ public class Communicator : MonoBehaviour
 				// Load and play new audio clip
 				AudioSource newSource = gameObject.AddComponent<AudioSource> ();
 				LoadAudioClip (_client.PrimaryEndpoint() + "voiceaudio/" + latestResults.Blobs[lastKnownResults].Name, newSource, latestResults.Blobs[lastKnownResults].Name);
+				lastKnownResults = latestResults.Blobs.Length;
+			}
+			else if (lastKnownResults > latestResults.Blobs.Length)
+			{
 				lastKnownResults = latestResults.Blobs.Length;
 			}
 		}
@@ -111,6 +115,7 @@ public class Communicator : MonoBehaviour
 		} 
 		else 
 		{
+			Debug.Log ("Loaded Audio");
 			AudioClip clip = ((DownloadHandlerAudioClip)www.downloadHandler).audioClip;
 			src.clip = clip;
 			src.Play ();

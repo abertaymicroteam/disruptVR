@@ -4,41 +4,82 @@ using System.Collections.Generic;
 
 public class SpawnManager : MonoBehaviour {
 
-	public List<Spawner> spawners;
-	public List<bool> enabledProjectiles;
+	public bool isactive;
+	private List<Spawner> spawners;
+	public List<GameObject> allProjectiles;
 	public float rotationSpeed;
 
-	private GameManager manager;
-	private float timer;
+	public float timer;
+	public float fireRate;
 
-	void Start(){
+	public RoundInfo info;
+	public void SetRoundInfo (RoundInfo i) {info = i;}
+
+	void Awake(){
 
 		Random.InitState((int)System.DateTime.Now.Ticks);
-
-		foreach (Spawner obj in GetComponentsInChildren<Spawner>()){
-			spawners.Add (obj);
-		}
-		foreach (GameObject obj in spawners[0].Projectiles){
-			enabledProjectiles.Add (true);
-		}
-		manager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+		isactive = false;
+		spawners = new List<Spawner> ();
+		GetSpawnerList ();
 	}
 
 	void Update(){
 
-		if (manager.currentStage == GameManager.stage.ROUND) {
+		if (isactive){
 			timer += Time.deltaTime;
-			if (timer >= manager.fireRate){
-				spawners [Random.Range (0, spawners.Count)].Spawn ();
+			if (timer >= fireRate){
+
 				timer = 0;
+				Fire();
 			}
-		} else {
-			timer = 0; 
 		}
 
 		// Rotate turrets around Y axis
-		foreach(Spawner obj in spawners){
-			transform.RotateAround (transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
+		transform.RotateAround (transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
+
+	}
+
+	void Fire(){
+
+		// Choose a random projectile from the list
+		// ballnum is 0, 1, 2 or 3
+		int ballnum = Random.Range (0, info.projectiles.Count);
+		info.projectiles [ballnum]--;
+
+		// Spawn the projectile we chose from a random spawner
+		GameObject ball = allProjectiles[ballnum];
+		spawners [Random.Range (0, spawners.Count)].Spawn(ball);
+
+		// if there are no more of the ball we just fired, remove it from the list
+		if (info.projectiles[ballnum] <= 0) {
+			info.projectiles.RemoveAt(ballnum);
+		}
+			
+		/////////////
+		/// But if we remove an item at the beginning of the list,
+		/// element 2 is now element 1 and so on...
+		/// Need to get better way of preventing it from picking items that are 0
+		/// /////////
+	}
+
+	public void TurnOn(){
+		
+		isactive = true;
+
+		// Calculate fire rate
+		fireRate = (float)info.roundTime / (float)info.totalProjectiles ();
+	}
+
+	public void TurnOff(){
+
+		isactive = false;
+	}
+
+	void GetSpawnerList(){
+
+		spawners.Clear();
+		foreach (Spawner obj in GetComponentsInChildren<Spawner>()){
+			spawners.Add (obj);
 		}
 	}
 }
