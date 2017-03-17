@@ -22,8 +22,8 @@ public class BaseProjectile : MonoBehaviour {
 			Destroy (gameObject);
 
 			// increment hit counter for round stats
-			GameManager manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-			manager.rounds [manager.round_].hits++;
+			ScoreTracker tracker = GameObject.Find("ScoreTracker").GetComponent<ScoreTracker>();
+			tracker.AddDodge();
 		}
 	}
 }

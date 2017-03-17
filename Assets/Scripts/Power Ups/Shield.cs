@@ -27,8 +27,8 @@ public class Shield : MonoBehaviour {
 		collisions++;
 
 		// increment hit counter for round stats
-		GameManager manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		manager.rounds [manager.round_].shielded++;
+		ScoreTracker tracker = GameObject.Find("ScoreTracker").GetComponent<ScoreTracker>();
+		tracker.AddShield();
 	}
 
 }
