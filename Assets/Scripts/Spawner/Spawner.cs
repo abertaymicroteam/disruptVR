@@ -11,8 +11,8 @@ public class Spawner : MonoBehaviour {
 
 		Random.InitState((int)System.DateTime.Now.Ticks);
 
-		target = GameObject.FindWithTag("Player").transform;
-		manager = GameObject.FindWithTag ("SpawnManager").GetComponent<SpawnManager> ();
+		target = GameObject.Find("Player").transform;
+		manager = GameObject.Find("Spawners").GetComponent<SpawnManager> ();
 	}
 
 	void Update(){

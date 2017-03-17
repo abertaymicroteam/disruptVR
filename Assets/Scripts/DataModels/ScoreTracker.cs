@@ -25,7 +25,7 @@ public class ScoreTracker : MonoBehaviour {
 		timer += Time.deltaTime;
 		if (timer >= 2.0f) {
 			timer = 0;
-			Debug.Log (scores [0].hits);
+			Debug.Log (scores[0].hits);
 		}
 
 	}
