@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{CCC8D185-687F-5DFD-382E-186E08E9E8A0}</ProjectGuid>
+    <ProjectGuid>{F487EA12-BA1C-0446-21DC-2982223D18DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
+    <AssemblyName>Assembly-UnityScript</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -46,7 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Plugins\openvr_api.cs" />
+     <Compile Include="Assets\Art\Script_MeshAnim.js" />
      <None Include="Assets\External Libraries\VRTK\Version.txt" />
      <None Include="Assets\External Libraries\Glow\_MKGlow\_Shader\_MKBase\Mobile\MK_Mobile-Diffuse.shader" />
      <None Include="Assets\External Libraries\Glow\_MKGlow\_Shader\_MKBase\Illumin\MK_Illumin-Glossy.shader" />
@@ -145,6 +145,10 @@
  <Reference Include="Pathfinding.JsonFx">
  <HintPath>C:/Users/Owen/Documents/disruptVR/Assets/Plugins/Pathfinding.JsonFx.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{CCC8D185-687F-5DFD-382E-186E08E9E8A0}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
