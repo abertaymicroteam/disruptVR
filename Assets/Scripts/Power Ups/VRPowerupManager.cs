@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PowerupManager : MonoBehaviour {
+public class VRPowerupManager : MonoBehaviour {
 
 	public List<GameObject> powerup;
 
@@ -10,7 +10,7 @@ public class PowerupManager : MonoBehaviour {
 		Instantiate (powerup[num]);
 
 		// increment hit counter for round stats
-		GameManager manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		manager.rounds [manager.round_].powerups++;
+		ScoreTracker tracker = GameObject.Find("ScoreTracker").GetComponent<ScoreTracker>();
+		tracker.AddPowerup();
 	}
 }

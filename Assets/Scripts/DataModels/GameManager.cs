@@ -4,82 +4,138 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
+	public List<GameObject> allProjectiles;
 	public List<RoundInfo> rounds;
-	[HideInInspector]
+	//[HideInInspector]
 	public int round_;
 
 	private float timer;
-	[HideInInspector]
-	public float fireRate;
-	private SpawnManager spawnman;
-	private PowerupManager powerman;
-	public enum stage {ENTRANCE, ROUND, BREAK};
-	public stage currentStage;
-
 	private GameObject rig;
+	private SpawnManager spawnman;
+	public enum stage {Entrance, Round, Wait, Break, GetReady};
+	public enum loopMode {LoopFromStart, ReplayLast};
+	public stage currentStage;
+	public loopMode loop;
 
 	void Start(){
 
 		round_ = 0;
 		timer = 0;
-
-		currentStage = stage.ENTRANCE;
-		spawnman = GameObject.Find("Spawners").GetComponent<SpawnManager>();
-		powerman = GetComponent<PowerupManager> ();
+		currentStage = stage.Entrance;
 
 		rig = GameObject.Find("[CameraRig]");
-		CalculateFireRate ();
+		spawnman = GameObject.Find("Spawners").GetComponent<SpawnManager>();
+		spawnman.SetRoundInfo(rounds[0]);
 	}
 
-	void Update(){
+	void Update (){
 
-		switch (currentStage){
-		case stage.ENTRANCE:
+		RoundInfo thisRound = rounds [round_];
 
-			if (rig.transform.position.y == 0.0f){
-				currentStage = stage.ROUND;
+		switch (currentStage) {
+
+		case stage.Entrance:
+			if (rig.transform.position.y >= -1.0f) {
+				currentStage = stage.Round;
+				spawnman.TurnOn ();
 			}
 			break;
-		case stage.ROUND:
 
+		case stage.Round:
+			if (timer == 0.0f) {
+				StartRound (thisRound);
+			}
+		
 			timer += Time.deltaTime;
-			if (timer >= (float)rounds[round_].roundTime){
-				currentStage = stage.BREAK;
+
+			if (timer >= (float)thisRound.roundTime) {
+				timer = 0;
 				EndRound ();
-			}
+			}	
 			break;
-		case stage.BREAK:
+
+		case stage.Wait:
 
 			timer += Time.deltaTime;
-			if (timer >= (float)rounds[round_].breakTime){
-				currentStage = stage.ROUND;
+
+			if (timer >= 5.0f) {
+				timer = 0;
+				EndWait ();
+			}
+			break;
+
+		case stage.Break:
+
+			timer += Time.deltaTime;
+
+			if (timer >= (float)thisRound.breakTime) {
+				timer = 0;
 				EndBreak ();
 			}
 			break;
+
+		case stage.GetReady:
+
+			timer += Time.deltaTime;
+
+			if (timer >= 3.0f) {
+				timer = 0;
+				currentStage = stage.Round;
+			}
+			break;
 		}
+	}
+
+	void StartRound(RoundInfo round){
+
+		spawnman.SetRoundInfo(round);
 	}
 
 	void EndRound(){
 
-		timer = 0;
+		currentStage = stage.Wait;
+	}
 
-		// Spawn a detonate to destroy all balls
-		powerman.Activate(0);
+	void EndWait(){
+
+		spawnman.TurnOff();
+		currentStage = stage.Break;
+
+		BaseProjectile[] projectiles = GameObject.FindObjectsOfType<BaseProjectile>();
+		foreach (BaseProjectile ball in projectiles){
+
+			Destroy (ball.gameObject);
+		}
 	}
 
 	void EndBreak(){
 
-		timer = 0;
+		currentStage = stage.GetReady;
 
-		if (round_ < rounds.Count) {
+		// If we just finished the last round, decide what to do based on LoopMode
+		if ((round_ + 1) == rounds.Count){
+
+			switch (loop){
+			case loopMode.LoopFromStart:
+				round_ = 0;
+				foreach (RoundInfo round in rounds){
+					for (int i = 0; i < round.projectiles.Count; i++){
+						round.projectiles [i]++;
+					}
+					round.roundTime += 2;
+				}
+				break;
+			case loopMode.ReplayLast:
+				
+				break;
+			}
+		} else {
 			round_++;
 		}
 
-		CalculateFireRate ();
+		// Update spawn manager with the correct round
+		spawnman.SetRoundInfo(rounds[round_]);
+		spawnman.TurnOn();
 	}
-
-	void CalculateFireRate(){
 		
-		fireRate = (float)rounds [round_].roundTime / (float)rounds [round_].projectileCount;
-	}
 }

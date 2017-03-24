@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class RoundInfo {
+public class RoundInfo : System.Object {
 
 	public int roundTime;
 	public int breakTime;
-	public int projectileCount;
+	[Range(0, 30)]
+	public List<int> projectiles;
 
-	[HideInInspector]
-	public int hits, dodges, punches, powerups, shielded, detonated, shockwaved;
+	public int totalProjectiles(){
 
-	// These variables are incremented whenever they happen in scripts:
-	// PlayerHealth.cs
-	// BaseProjectile.cs
-	// SphereCollisionScript.cs
-	// PowerupManager.cs
-	// Shield.cs
-	// Detonate.cs
-	// Shockwave.cs
+		int sum = 0;
+		foreach (int item in projectiles) {
+			sum += item;
+		}
+		return sum;
+	}
 }

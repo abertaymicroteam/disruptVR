@@ -245,6 +245,8 @@
      <Compile Include="Assets\External Libraries\VRTK\Scripts\VRTK_TouchpadWalking.cs" />
      <Compile Include="Assets\External Libraries\VRTK\Scripts\VRTK_UIPointer.cs" />
      <Compile Include="Assets\Scripts\Audio\AnnouncerScript.cs" />
+     <Compile Include="Assets\Scripts\Audio\AudioStart.cs" />
+     <Compile Include="Assets\Scripts\Audio\AudioStop.cs" />
      <Compile Include="Assets\Scripts\Azure\ARVoice.cs" />
      <Compile Include="Assets\Scripts\Azure\AzureController.cs" />
      <Compile Include="Assets\Scripts\Azure\Communicator.cs" />
@@ -254,12 +256,14 @@
      <Compile Include="Assets\Scripts\DataModels\Highscore.cs" />
      <Compile Include="Assets\Scripts\DataModels\Message.cs" />
      <Compile Include="Assets\Scripts\DataModels\RoundInfo.cs" />
+     <Compile Include="Assets\Scripts\DataModels\RoundScore.cs" />
+     <Compile Include="Assets\Scripts\DataModels\ScoreTracker.cs" />
      <Compile Include="Assets\Scripts\DataModels\SpawnFlag.cs" />
      <Compile Include="Assets\Scripts\Power Ups\BasePowerup.cs" />
      <Compile Include="Assets\Scripts\Power Ups\Detonate.cs" />
-     <Compile Include="Assets\Scripts\Power Ups\PowerupManager.cs" />
      <Compile Include="Assets\Scripts\Power Ups\Shield.cs" />
      <Compile Include="Assets\Scripts\Power Ups\Shockwave.cs" />
+     <Compile Include="Assets\Scripts\Power Ups\VRPowerupManager.cs" />
      <Compile Include="Assets\Scripts\Projectiles\AutoDestroy.cs" />
      <Compile Include="Assets\Scripts\Projectiles\BaseProjectile.cs" />
      <Compile Include="Assets\Scripts\Projectiles\ExplodingBall.cs" />

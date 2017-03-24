@@ -12,10 +12,10 @@ public class SnakeBall : BaseProjectile {
 
 	protected override void Start (){
 
-		base.Start ();
+		base.Start();
 		initTime = Time.timeSinceLevelLoad;
 
-		GetComponent<Rigidbody> ().AddForce (transform.forward * forwardSpeed);
+		GetComponent<Rigidbody>().AddForce (transform.forward * forwardSpeed);
 		child = GetComponentInChildren<Transform> ();
 	}
 	

@@ -4,41 +4,81 @@ using System.Collections.Generic;
 
 public class SpawnManager : MonoBehaviour {
 
-	public List<Spawner> spawners;
-	public List<bool> enabledProjectiles;
+	public bool isactive;
+	private List<Spawner> spawners;
 	public float rotationSpeed;
 
-	private GameManager manager;
-	private float timer;
+	public float timer;
+	public float fireRate;
 
-	void Start(){
+	public RoundInfo info;
+	public void SetRoundInfo (RoundInfo i) {info = i;}
+
+	void Awake(){
 
 		Random.InitState((int)System.DateTime.Now.Ticks);
-
-		foreach (Spawner obj in GetComponentsInChildren<Spawner>()){
-			spawners.Add (obj);
-		}
-		foreach (GameObject obj in spawners[0].Projectiles){
-			enabledProjectiles.Add (true);
-		}
-		manager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+		isactive = false;
+		spawners = new List<Spawner> ();
+		GetSpawnerList ();
 	}
 
-	void Update(){
+	void Update (){
 
-		if (manager.currentStage == GameManager.stage.ROUND) {
+		if (isactive) {
+
 			timer += Time.deltaTime;
-			if (timer >= manager.fireRate){
-				spawners [Random.Range (0, spawners.Count)].Spawn ();
+			if (timer >= fireRate) {
+
 				timer = 0;
+				Fire ();
 			}
-		} else {
-			timer = 0; 
+
+			// Rotate turrets around Y axis
+			transform.RotateAround (transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
+		}
+	}
+
+	void Fire (){
+
+		// Choose a random projectile from the list
+		// ballnum is 0, 1, 2 or 3
+
+		if (info.totalProjectiles() == 0) {
+			//nothing to fire 
+			return;
 		}
 
-		// Rotate turrets around Y axis
-		foreach(Spawner obj in spawners){
-			transform.RotateAround (transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
+		int ballnum = 0;
+		do {
+			ballnum = Random.Range (0, info.projectiles.Count);
+		} while (info.projectiles[ballnum] == 0);
+
+		// Remove an item from the list
+		info.projectiles[ballnum]--;
+
+		// Spawn the projectile we chose from a random spawner
+		GameObject ball = GameObject.Find("GameManager").GetComponent<GameManager>().allProjectiles[ballnum];
+		spawners [Random.Range (0, spawners.Count)].Spawn(ball);
+	}
+
+	public void TurnOn(){
+		
+		isactive = true;
+
+		// Calculate fire rate
+		fireRate = (float)info.roundTime / (float)info.totalProjectiles ();
+	}
+
+	public void TurnOff(){
+
+		isactive = false;
+	}
+
+	void GetSpawnerList(){
+
+		spawners.Clear();
+		foreach (Spawner obj in GetComponentsInChildren<Spawner>()){
+			spawners.Add (obj);
 		}
 	}
 }
