@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
 
 	public List<GameObject> allProjectiles;
 	public List<RoundInfo> rounds;
-	//[HideInInspector]
+	[HideInInspector]
 	public int round_;
 
 	private float timer;

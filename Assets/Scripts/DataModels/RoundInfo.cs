@@ -10,6 +10,11 @@ public class RoundInfo : System.Object {
 	[Range(0, 30)]
 	public List<int> projectiles;
 
+	public void Awake (){
+
+		projectiles.Capacity = GameObject.Find("GameManager").GetComponent<GameManager>().allProjectiles.Count;
+	}
+
 	public int totalProjectiles(){
 
 		int sum = 0;
