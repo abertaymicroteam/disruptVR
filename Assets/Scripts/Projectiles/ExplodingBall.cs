@@ -13,14 +13,14 @@ public class ExplodingBall : BaseProjectile {
 
 		base.Start ();
 		body = GetComponent<Rigidbody>();
-		color = GetComponent<Renderer> ().material.color;
+		color = GetComponent<Renderer>().material.color;
 
 		Throw();
 	}
 
 	protected override void Update(){
 
-		base.Update ();
+		base.Update();
 
 		if (isActive) {
 			if (Vector3.Distance (transform.position, target.position) < (spawnDistance / 2.0f)) {
@@ -31,13 +31,7 @@ public class ExplodingBall : BaseProjectile {
 		}
 	}
 
-	void OnTriggerEnter(Collider other){
 
-		if (other.CompareTag ("Player")){
-			other.GetComponent<PlayerHealth> ().playerHealth -= explosionDmg;
-			Destroy (gameObject);
-		}
-	}
 
 	void Throw (){
 

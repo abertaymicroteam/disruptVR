@@ -11,10 +11,13 @@ public class displayScore : MonoBehaviour {
 	public Text scoreText4;
 
 	private int score;
+	private ScoreTracker tracker;
+
 	// Use this for initialization
 	void Start () 
 	{
-		score = ScoreTracker.scores[0].hits;
+		tracker = GameObject.Find("ScoreTracker").GetComponent<ScoreTracker>();
+		score = tracker.scores [0].hits;
 	}
 	
 	// Update is called once per frame

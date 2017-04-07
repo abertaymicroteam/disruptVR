@@ -6,6 +6,8 @@ public class MineBall : BaseProjectile {
 	public float forwardSpeed;
 	public float spinSpeed;
 
+	public float explosionDmg;
+
 	protected override void Start(){
 
 		base.Start();
@@ -21,6 +23,14 @@ public class MineBall : BaseProjectile {
 		if (isActive){
 			transform.position += movementDirection * forwardSpeed * Time.deltaTime;
 			transform.Rotate(spinSpeed, 0, 0);
+		}
+	}
+
+	void OnTriggerEnter(Collider other){
+
+		if (other.CompareTag ("Player")){
+			other.GetComponent<PlayerHealth>().playerHealth -= explosionDmg;
+			Destroy (gameObject);
 		}
 	}
 }
