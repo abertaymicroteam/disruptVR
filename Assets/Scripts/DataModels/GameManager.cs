@@ -25,12 +25,6 @@ public class GameManager : MonoBehaviour {
 		rig = GameObject.Find("[CameraRig]");
 		spawnman = GameObject.Find("Spawners").GetComponent<SpawnManager>();
 		spawnman.SetRoundInfo(rounds[0]);
-
-//		foreach (RoundInfo round in rounds){
-//			foreach (GameObject item in spawnman.allProjectiles){
-//				round.projectiles.Add (4);
-//			}
-//		}
 	}
 
 	void Update(){
@@ -148,5 +142,4 @@ public class GameManager : MonoBehaviour {
 		spawnman.SetRoundInfo(rounds[round_]);
 		spawnman.TurnOn();
 	}
-		
 }

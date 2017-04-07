@@ -244,6 +244,7 @@
      <Compile Include="Assets\External Libraries\VRTK\Scripts\VRTK_TeleportDisableOnHeadsetCollision.cs" />
      <Compile Include="Assets\External Libraries\VRTK\Scripts\VRTK_TouchpadWalking.cs" />
      <Compile Include="Assets\External Libraries\VRTK\Scripts\VRTK_UIPointer.cs" />
+     <Compile Include="Assets\MineBall.cs" />
      <Compile Include="Assets\Rotation.cs" />
      <Compile Include="Assets\Scripts\Audio\AnnouncerScript.cs" />
      <Compile Include="Assets\Scripts\Azure\ARVoice.cs" />
@@ -265,11 +266,11 @@
      <Compile Include="Assets\Scripts\Power Ups\VRPowerupManager.cs" />
      <Compile Include="Assets\Scripts\Projectiles\AutoDestroy.cs" />
      <Compile Include="Assets\Scripts\Projectiles\BaseProjectile.cs" />
+     <Compile Include="Assets\Scripts\Projectiles\BasicBall.cs" />
      <Compile Include="Assets\Scripts\Projectiles\ExplodingBall.cs" />
      <Compile Include="Assets\Scripts\Projectiles\SnakeBall.cs" />
      <Compile Include="Assets\Scripts\Projectiles\SphereCollisionScript.cs" />
      <Compile Include="Assets\Scripts\Projectiles\SpiralBall.cs" />
-     <Compile Include="Assets\Scripts\Projectiles\StraightBall.cs" />
      <Compile Include="Assets\Scripts\Projectiles\ThrowBall.cs" />
      <Compile Include="Assets\Scripts\Spawner\SpawnManager.cs" />
      <Compile Include="Assets\Scripts\Spawner\Spawner.cs" />
