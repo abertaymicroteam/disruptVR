@@ -1,0 +1,21 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Azure\Communicator.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Projectiles\SphereCollisionScript.cs" Line="32" Column="1" />
+      <File FileName="Assets\Scripts\DataModels\GameManager.cs" Line="36" Column="16" />
+      <File FileName="Assets\Scripts\DataModels\RoundInfo.cs" Line="10" Column="14" />
+      <File FileName="Assets\Scripts\Spawner\SpawnManager.cs" Line="44" Column="43" />
+      <File FileName="Assets\Scripts\Spawner\Spawner.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Audio\AudioStart.cs" Line="23" Column="4" />
+      <File FileName="Assets\Scripts\Azure\Communicator.cs" Line="122" Column="79" />
+      <File FileName="Assets\External Libraries\StorageServices\http\StorageRequest.cs" Line="29" Column="3" />
+      <File FileName="Assets\Scripts\Azure\AzureController.cs" Line="227" Column="1" />
+      <File FileName="Assets\Scripts\DataModels\ScoreTracker.cs" Line="28" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

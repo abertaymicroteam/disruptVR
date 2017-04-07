@@ -26,7 +26,7 @@ namespace Unity3dAzure.StorageServices
 				this.AddHeaders (headers);
 			}
 
-			Debug.Log ("Authorized request url:" + this.request.url + "\n\nauthorization: \"" + authorization + "\"\nx-ms-date: " + authHeaders.MSDate () + "\nstringToSign:'" + stringToSign + "'");
+//			Debug.Log ("Authorized request url:" + this.request.url + "\n\nauthorization: \"" + authorization + "\"\nx-ms-date: " + authHeaders.MSDate () + "\nstringToSign:'" + stringToSign + "'");
 		}
 
 		/// <summary>
