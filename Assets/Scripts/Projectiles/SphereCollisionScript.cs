@@ -10,11 +10,14 @@ using System.Collections;
 
 public class SphereCollisionScript : MonoBehaviour {
 
+	// Score script *DELETE ONCE OWENS SCORE WORKS*
+	private displayScore scoreScript;
 
 	// Use this for initialization
 	void Start () 
 	{
-
+		// DELETE
+		scoreScript = GameObject.Find ("Screen").GetComponent<displayScore> ();
 	}
 
 	// Update is called once per frame
@@ -44,6 +47,8 @@ public class SphereCollisionScript : MonoBehaviour {
 			// increment hit counter for round stats
 			ScoreTracker tracker = GameObject.Find("ScoreTracker").GetComponent<ScoreTracker>();
 			tracker.AddPunch();
+
+			scoreScript.score++;
 		}
 	}
 

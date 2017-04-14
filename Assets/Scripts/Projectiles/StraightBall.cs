@@ -4,7 +4,6 @@ using System.Collections;
 public class StraightBall : BaseProjectile {
 
 	public float forwardSpeed;
-	public float spinSpeed;
 
 	protected override void Start(){
 
@@ -17,12 +16,7 @@ public class StraightBall : BaseProjectile {
 		base.Update ();
 
 		if (isActive) {
-
-			// Move
 			transform.position += transform.forward * forwardSpeed * Time.deltaTime;
-
-			// Spin
-			GetComponentInChildren<Transform>().Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
 		}
 	}
 }

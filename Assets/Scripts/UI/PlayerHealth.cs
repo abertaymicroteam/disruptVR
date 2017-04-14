@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour {
 		regenStart = 0.5f;
 		regenInterval = 0.1f;
 
-		txt = GameObject.FindObjectOfType<Text>();
+		txt = GameObject.Find("HealthText").GetComponent<Text>();
 		damage = GameObject.FindGameObjectWithTag ("Damage").GetComponent<SpriteRenderer> ();
 
 		//aScript = GameObject.Find ("Announcer").GetComponent<AnnouncerScript> ();

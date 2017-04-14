@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ScoreTracker : MonoBehaviour {
 
-	//[HideInInspector]
-	public List<RoundScore> scores;
+
+	public static List<RoundScore> scores = new List<RoundScore>();
 	private GameManager manager;
 
 	private float timer;
@@ -25,7 +25,7 @@ public class ScoreTracker : MonoBehaviour {
 		timer += Time.deltaTime;
 		if (timer >= 2.0f) {
 			timer = 0;
-			Debug.Log (scores[0].hits);
+			Debug.Log ("Score: " + scores[0].hits);
 		}
 
 	}

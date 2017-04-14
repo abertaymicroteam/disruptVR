@@ -18,7 +18,7 @@ public class IndicatorManager : MonoBehaviour {
 	void Start (){
 		
         // Get canvas
-        canvas = GameObject.FindObjectOfType(typeof(Canvas)) as Canvas;
+		canvas = GameObject.FindGameObjectWithTag("UICanvas").GetComponent<Canvas>();
 		// Get camera
 		cam = GameObject.Find("Camera (eye)").GetComponent<Camera>();
 	}

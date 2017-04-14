@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
-	public List<GameObject> allProjectiles;
 	public List<RoundInfo> rounds;
-	[HideInInspector]
+	//[HideInInspector]
 	public int round_;
 
 	private float timer;
@@ -26,58 +25,64 @@ public class GameManager : MonoBehaviour {
 		rig = GameObject.Find("[CameraRig]");
 		spawnman = GameObject.Find("Spawners").GetComponent<SpawnManager>();
 		spawnman.SetRoundInfo(rounds[0]);
+
+//		foreach (RoundInfo round in rounds){
+//			foreach (GameObject item in spawnman.allProjectiles){
+//				round.projectiles.Add (4);
+//			}
+//		}
 	}
 
-	void Update (){
+	void Update(){
 
-		RoundInfo thisRound = rounds [round_];
+		RoundInfo thisRound = rounds[round_];
 
-		switch (currentStage) {
-
+		switch (currentStage){
 		case stage.Entrance:
-			if (rig.transform.position.y >= -1.0f) {
+
+			if (rig.transform.position.y >= -1.0f){
 				currentStage = stage.Round;
-				spawnman.TurnOn ();
+				spawnman.TurnOn();
 			}
 			break;
-
 		case stage.Round:
-			if (timer == 0.0f) {
-				StartRound (thisRound);
+
+			if (timer == 0.0f){
+				StartRound(thisRound);
 			}
-		
+			
 			timer += Time.deltaTime;
 
-			if (timer >= (float)thisRound.roundTime) {
+			if (timer >= (float)thisRound.roundTime){
 				timer = 0;
-				EndRound ();
-			}	
+				EndRound();
+			}
 			break;
-
 		case stage.Wait:
 
 			timer += Time.deltaTime;
 
-			if (timer >= 5.0f) {
+			if (timer >= 5.0f){
 				timer = 0;
-				EndWait ();
+				EndWait();
 			}
 			break;
-
 		case stage.Break:
+
+			if (timer == 0.0f){
+				StartBreak();
+			}
 
 			timer += Time.deltaTime;
 
-			if (timer >= (float)thisRound.breakTime) {
+			if (timer >= (float)thisRound.breakTime){
 				timer = 0;
-				EndBreak ();
+				EndBreak();
 			}
 			break;
-
 		case stage.GetReady:
 
 			timer += Time.deltaTime;
-
 			if (timer >= 3.0f) {
 				timer = 0;
 				currentStage = stage.Round;
@@ -94,11 +99,11 @@ public class GameManager : MonoBehaviour {
 	void EndRound(){
 
 		currentStage = stage.Wait;
+		spawnman.TurnOff();
 	}
 
 	void EndWait(){
 
-		spawnman.TurnOff();
 		currentStage = stage.Break;
 
 		BaseProjectile[] projectiles = GameObject.FindObjectsOfType<BaseProjectile>();
@@ -106,6 +111,12 @@ public class GameManager : MonoBehaviour {
 
 			Destroy (ball.gameObject);
 		}
+	}
+
+	void StartBreak(){
+
+		// Raise the screen and ring objects so the player can see them
+		// Display the score for that round
 	}
 
 	void EndBreak(){
