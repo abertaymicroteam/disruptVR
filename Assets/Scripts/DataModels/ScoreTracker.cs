@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ScoreTracker : MonoBehaviour {
 
-
 	public static List<RoundScore> scores = new List<RoundScore>();
 	private GameManager manager;
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+
+using UnityEngine;
 using System.Collections;
 
 /*Sphere collision script
@@ -10,14 +11,13 @@ using System.Collections;
 
 public class SphereCollisionScript : MonoBehaviour {
 
-	// Score script *DELETE ONCE OWENS SCORE WORKS*
-	private displayScore scoreScript;
+
+	public displayScore score_;
 
 	// Use this for initialization
 	void Start () 
 	{
-		// DELETE
-		scoreScript = GameObject.Find ("Screen").GetComponent<displayScore> ();
+		score_ = FindObjectOfType<displayScore> ();
 	}
 
 	// Update is called once per frame
@@ -48,7 +48,8 @@ public class SphereCollisionScript : MonoBehaviour {
 			ScoreTracker tracker = GameObject.Find("ScoreTracker").GetComponent<ScoreTracker>();
 			tracker.AddPunch();
 
-			scoreScript.score++;
+			score_.ballHit ();
+
 		}
 	}
 

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ public class RoundInfo {
 
 	public int roundTime;
 	public int breakTime;
-	[Range(0, 30)]
+	[Range(0, 10)]
 	public List<int> projectiles;
 
 	public int totalProjectiles(){

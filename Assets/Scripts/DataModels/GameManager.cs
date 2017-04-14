@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
 	public stage currentStage;
 	public loopMode loop;
 
+	public void reset () {spawnman.SetRoundInfo(rounds[0]);}
+
 	void Start(){
 
 		round_ = 0;
@@ -24,13 +26,7 @@ public class GameManager : MonoBehaviour {
 
 		rig = GameObject.Find("[CameraRig]");
 		spawnman = GameObject.Find("Spawners").GetComponent<SpawnManager>();
-		spawnman.SetRoundInfo(rounds[0]);
-
-//		foreach (RoundInfo round in rounds){
-//			foreach (GameObject item in spawnman.allProjectiles){
-//				round.projectiles.Add (4);
-//			}
-//		}
+		reset();
 	}
 
 	void Update(){
@@ -148,5 +144,4 @@ public class GameManager : MonoBehaviour {
 		spawnman.SetRoundInfo(rounds[round_]);
 		spawnman.TurnOn();
 	}
-		
 }

@@ -14,13 +14,14 @@ public class PlayerHealth : MonoBehaviour {
 	float regenTimer;
 
 	// Object containers
-	Text txt;
+
 	SpriteRenderer damage;
 	//AnnouncerScript aScript;
 
 	// Hurt counter and bool
 	bool hurtAudioFlag;
-	bool gameOverFlag;
+	public bool dead;
+	float deadtime;
 
 	// Use this for initialization
 	void Start ()
@@ -30,13 +31,12 @@ public class PlayerHealth : MonoBehaviour {
 		regenStart = 0.5f;
 		regenInterval = 0.1f;
 
-		txt = GameObject.Find("HealthText").GetComponent<Text>();
 		damage = GameObject.FindGameObjectWithTag ("Damage").GetComponent<SpriteRenderer> ();
 
 		//aScript = GameObject.Find ("Announcer").GetComponent<AnnouncerScript> ();
 
 		// Audio parameters
-		gameOverFlag = false;
+		dead = false;
 		hurtAudioFlag = false;
 		regenTimer = 0;
 
@@ -47,28 +47,22 @@ public class PlayerHealth : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		txt.text = "Health: ";
-		txt.text += playerHealth.ToString ();
+		
 
 		if (playerHealth <= 0.0f) 
 		{
-			if (gameOverFlag == false) 
-			{
-				// Play death audio and set game over text
-				if (Random.Range (0.0f, 100.0f) < 50.0f) 
-				{
-					//aScript.whosNext = true;
-					gameOverFlag = true;
-				} 
-				else 
-				{
-					//aScript.moreFight = true;
-					gameOverFlag = true;
-				}
-			}
-			
-			txt.text = "Game Over";
+			//dead = true;
+			//GameOver();
 		}
+		if (dead)
+		{
+			deadtime += Time.deltaTime;
+			if (deadtime >= 5.0f){
+				dead = true;
+				deadtime = 0;
+			}
+		}
+
 		else if (playerHealth > 100)
 		{
 			playerHealth = 100;
@@ -98,20 +92,6 @@ public class PlayerHealth : MonoBehaviour {
 
 			// Reset hurt timer
 			regenTimer = 0;
-
-			if (Random.Range (0.0f, 100.0f) < 50.0f) 
-			{
-				if (Random.Range (0.0f, 100.0f) < 50.0f) 
-				{
-					//if (!aScript.cookingSource.isPlaying)
-						//aScript.cooking = true;
-				} 
-				else 
-				{
-					//if (!aScript.dodgeThoseSource.isPlaying)
-						//aScript.dodgeThose = true;
-				}
-			}
 		}
 	}
 
@@ -125,5 +105,17 @@ public class PlayerHealth : MonoBehaviour {
 			}
 			yield return new WaitForSeconds (regenInterval);
 		}
+	}
+
+	void GameOver(){
+
+		// Turn spawners off
+		SpawnManager spawnman = GameObject.Find ("Spawners").GetComponent<SpawnManager> ();
+		spawnman.TurnOff ();
+		GameManager gameman = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+		gameman.reset ();
+		gameman.round_ = 0;
+		playerHealth = 100.0f;
+		dead = false;
 	}
 }
