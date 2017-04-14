@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	private float timer;
 	private GameObject rig;
 	private SpawnManager spawnman;
+	private LightsControl lightman;
 	public enum stage {Entrance, Round, Wait, Break, GetReady};
 	public enum loopMode {LoopFromStart, ReplayLast};
 	public stage currentStage;
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour {
 		rig = GameObject.Find("[CameraRig]");
 		spawnman = GameObject.Find("Spawners").GetComponent<SpawnManager>();
 		spawnman.SetRoundInfo(rounds[0]);
+		lightman = GameObject.Find ("m_arena_pirpir_bottom").GetComponent<LightsControl> ();
 	}
 
 	void Update(){

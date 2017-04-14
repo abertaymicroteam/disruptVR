@@ -259,8 +259,8 @@
      <Compile Include="Assets\Scripts\DataModels\RoundScore.cs" />
      <Compile Include="Assets\Scripts\DataModels\ScoreTracker.cs" />
      <Compile Include="Assets\Scripts\DataModels\SpawnFlag.cs" />
+     <Compile Include="Assets\Scripts\Misc\LightsControl.cs" />
      <Compile Include="Assets\Scripts\Misc\Rotation.cs" />
-     <Compile Include="Assets\Scripts\Misc\SetupLights.cs" />
      <Compile Include="Assets\Scripts\Power Ups\BasePowerup.cs" />
      <Compile Include="Assets\Scripts\Power Ups\Detonate.cs" />
      <Compile Include="Assets\Scripts\Power Ups\Shield.cs" />

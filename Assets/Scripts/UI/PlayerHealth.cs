@@ -52,21 +52,6 @@ public class PlayerHealth : MonoBehaviour {
 
 		if (playerHealth <= 0.0f) 
 		{
-//			if (gameOverFlag == false) 
-//			{
-//				// Play death audio and set game over text
-//				if (Random.Range (0.0f, 100.0f) < 50.0f) 
-//				{
-//					//aScript.whosNext = true;
-//					gameOverFlag = true;
-//				} 
-//				else 
-//				{
-//					//aScript.moreFight = true;
-//					gameOverFlag = true;
-//				}
-//			}
-
 			gameOverFlag = true;
 			GameOver ();
 		}
@@ -100,33 +85,16 @@ public class PlayerHealth : MonoBehaviour {
 
 			// Reset hurt timer
 			regenTimer = 0;
-
-			if (Random.Range (0.0f, 100.0f) < 50.0f) 
-			{
-				if (Random.Range (0.0f, 100.0f) < 50.0f) 
-				{
-					//if (!aScript.cookingSource.isPlaying)
-						//aScript.cooking = true;
-				} 
-				else 
-				{
-					//if (!aScript.dodgeThoseSource.isPlaying)
-						//aScript.dodgeThose = true;
-				}
-			}
 		}
 	}
 
 	private IEnumerator RegenHealth()
 	{
-		while (playerHealth > 0) 
+		if (regenTimer > regenStart && playerHealth < 100) 
 		{
-			if (regenTimer > regenStart && playerHealth < 100) 
-			{
-				playerHealth += regenRate * regenInterval;
-			}
-			yield return new WaitForSeconds (regenInterval);
+			playerHealth += regenRate * regenInterval;
 		}
+		yield return new WaitForSeconds (regenInterval);
 	}
 
 	void GameOver(){
