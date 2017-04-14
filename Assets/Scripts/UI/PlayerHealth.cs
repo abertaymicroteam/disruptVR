@@ -52,23 +52,25 @@ public class PlayerHealth : MonoBehaviour {
 
 		if (playerHealth <= 0.0f) 
 		{
-			if (gameOverFlag == false) 
-			{
-				// Play death audio and set game over text
-				if (Random.Range (0.0f, 100.0f) < 50.0f) 
-				{
-					//aScript.whosNext = true;
-					gameOverFlag = true;
-				} 
-				else 
-				{
-					//aScript.moreFight = true;
-					gameOverFlag = true;
-				}
-			}
-			
-			txt.text = "Game Over";
+//			if (gameOverFlag == false) 
+//			{
+//				// Play death audio and set game over text
+//				if (Random.Range (0.0f, 100.0f) < 50.0f) 
+//				{
+//					//aScript.whosNext = true;
+//					gameOverFlag = true;
+//				} 
+//				else 
+//				{
+//					//aScript.moreFight = true;
+//					gameOverFlag = true;
+//				}
+//			}
+
+			gameOverFlag = true;
+			GameOver ();
 		}
+
 		else if (playerHealth > 100)
 		{
 			playerHealth = 100;
@@ -125,5 +127,14 @@ public class PlayerHealth : MonoBehaviour {
 			}
 			yield return new WaitForSeconds (regenInterval);
 		}
+	}
+
+	void GameOver(){
+
+		txt.text = "Game Over";
+
+		// Turn spawners off
+		SpawnManager spawnman = GameObject.Find ("Spawners").GetComponent<SpawnManager> ();
+		spawnman.TurnOff ();
 	}
 }

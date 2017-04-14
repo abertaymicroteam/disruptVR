@@ -17,13 +17,10 @@ public class Spawner : MonoBehaviour {
 
 	void Update(){
 
-		//Vector3 direction = target.position - transform.position;
-		//transform.LookAt (target.position);
-		//transform.Rotate (transform.up, 90);
 	}
 
 	public void Spawn(GameObject item){
 
-		Instantiate (item, transform.position, Quaternion.identity);
+		Instantiate (item, transform.position + new Vector3(0.0f, 0.9f, 0.0f), Quaternion.identity);
 	}
 }
