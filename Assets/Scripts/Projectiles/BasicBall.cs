@@ -5,11 +5,14 @@ public class BasicBall : BaseProjectile {
 
 	public float forwardSpeed;
 	public float spinSpeed;
+	Vector3 movementDirection;
 
 	protected override void Start(){
 
 		base.Start();
 		GetComponent<Rigidbody>().AddForce (transform.forward * forwardSpeed);
+
+		movementDirection = Vector3.Normalize(target.position - transform.position);
 
 		transform.Rotate(0, 0, 90);
 	}
@@ -17,8 +20,6 @@ public class BasicBall : BaseProjectile {
 	protected override void Update(){
 
 		base.Update ();
-
-		Vector3 movementDirection = Vector3.Normalize(target.position - transform.position);
 
 		if (isActive){
 			transform.position += movementDirection * forwardSpeed * Time.deltaTime;

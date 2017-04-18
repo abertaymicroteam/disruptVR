@@ -81,6 +81,7 @@ public class AzureController : MonoBehaviour//, ITableViewDataSource
 		// Check bools to spawn power ups
         if (spawnShield)
         {
+			Debug.Log ("Spawning Shield");
             // Spawn tree
             Vector3 SpawnLocation = new Vector3(0.0f, 0.0f, 0.0f);
             Instantiate(ShieldPrefab, SpawnLocation, Quaternion.identity);
@@ -235,7 +236,7 @@ public class AzureController : MonoBehaviour//, ITableViewDataSource
 					{
 						spawnPurge = true;
 					}
-				} else if (item.name == "Shield") 
+				} else if (item.name == "Sheild") 
 				{
 					shield.id = item.id;
 					if (item.flag == true) 

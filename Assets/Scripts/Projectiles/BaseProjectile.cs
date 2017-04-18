@@ -9,8 +9,8 @@ public class BaseProjectile : MonoBehaviour {
 	public bool showIndicator;
 	//public Vector3 movementDirection;
 
-	protected virtual void Start(){
-	
+	protected virtual void Start()
+	{	
 		//movementDirection = Vector3.Normalize(target.position - transform.position);
 
 		target = GameObject.FindWithTag("Player").transform;

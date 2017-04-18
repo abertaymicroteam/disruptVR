@@ -10,8 +10,8 @@ public class SnakeBall : BaseProjectile {
 	private float initTime;
 	private Transform child;
 
-	protected override void Start (){
-
+	protected override void Start ()
+	{
 		base.Start();
 		initTime = Time.timeSinceLevelLoad;
 
